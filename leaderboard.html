@@ -107,7 +107,8 @@
         // --- Leaderboard Fetching Logic ---
         const leaderboardBody = document.getElementById('leaderboard-body');
         const serverSelect = document.getElementById('server-select');
-        const API_BASE_URL = 'http://127.0.0.1:5000'; 
+        // --- UPDATED: This now points to your live API on Render ---
+        const API_BASE_URL = 'https://rocks-api.onrender.com'; 
 
         async function fetchLeaderboard(guildId) {
             if (!guildId || guildId.includes('PASTE_YOUR_SERVER_ID_HERE')) {
@@ -180,3 +181,4 @@
     </script>
 </body>
 </html>
+
