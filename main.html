@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rocks - The Ultimate Discord Economy Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712; /* Darker base background */
+        }
+
+        /* Animated Gradient Background */
+        .hero-bg {
+            background: linear-gradient(-45deg, #111827, #1e1b4b, #312e81, #0c0a09);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Mouse-following Glow Effect */
+        .interactive-glow-card {
+            position: relative;
+            border: 1px solid #374151;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .interactive-glow-card:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 0.75rem; /* Corresponds to rounded-xl */
+            padding: 1px; /* border thickness */
+            background: radial-gradient(400px at var(--mouse-x) var(--mouse-y), rgba(79, 70, 229, 0.4), transparent 80%);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .interactive-glow-card:hover:before {
+            opacity: 1;
+        }
+        .interactive-glow-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1), 0 4px 6px -2px rgba(79, 70, 229, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+    <!-- Header -->
+    <header class="bg-gray-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">
+                <i class="fas fa-gem mr-2"></i>Rocks
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="hover:text-indigo-400 transition-colors">Features</a>
+                <a href="commands.html" class="hover:text-indigo-400 transition-colors">Commands</a>
+                <a href="leaderboard.html" class="hover:text-indigo-400 transition-colors">Leaderboard</a>
+                <a href="#" class="hover:text-indigo-400 transition-colors">Premium</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                 <a href="https://discord.com/oauth2/authorize?client_id=1402682715110637588&permissions=8&integration_type=0&scope=bot+applications.commands" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2 rounded-lg transition-colors">Add to Server</a>
+                 <button class="md:hidden text-2xl" id="menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2">
+            <a href="#features" class="block hover:text-indigo-400 transition-colors">Features</a>
+            <a href="commands.html" class="block hover:text-indigo-400 transition-colors">Commands</a>
+            <a href="leaderboard.html" class="block hover:text-indigo-400 transition-colors">Leaderboard</a>
+            <a href="#" class="block hover:text-indigo-400 transition-colors">Premium</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero-bg">
+        <section class="container mx-auto px-6 py-24 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4">
+                The Ultimate Economy & Marketplace Bot
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mb-8">
+                Build a thriving community with a dynamic economy, a user-driven shop, leveling, roles, and so much more. Rocks is the all-in-one solution for server engagement.
+            </p>
+            <div class="flex justify-center items-center space-x-4">
+                <a href="https://discord.com/oauth2/authorize?client_id=1402682715110637588&permissions=8&integration_type=0&scope=bot+applications.commands" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg px-8 py-4 rounded-lg transition-transform transform hover:scale-105">
+                    <i class="fas fa-plus-circle mr-2"></i>Invite Rocks
+                </a>
+                <a href="https://discord.gg/r6cuk5BM4U" class="bg-gray-700 hover:bg-gray-600 text-white font-bold text-lg px-8 py-4 rounded-lg transition-transform transform hover:scale-105">
+                    <i class="fab fa-discord mr-2"></i>Join Support Server
+                </a>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="container mx-auto px-6 pb-20 -mt-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="interactive-glow-card bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl text-center">
+                    <p class="text-indigo-400 text-2xl mb-2"><i class="fas fa-server"></i></p>
+                    <p id="server-count" class="text-4xl font-bold">1,234</p>
+                    <p class="text-gray-400">Servers</p>
+                </div>
+                <div class="interactive-glow-card bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl text-center">
+                    <p class="text-indigo-400 text-2xl mb-2"><i class="fas fa-users"></i></p>
+                    <p id="user-count" class="text-4xl font-bold">56,789</p>
+                    <p class="text-gray-400">Users</p>
+                </div>
+                <div class="interactive-glow-card bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl text-center">
+                    <p class="text-indigo-400 text-2xl mb-2"><i class="fas fa-shopping-cart"></i></p>
+                    <p id="items-sold" class="text-4xl font-bold">9,876</p>
+                    <p class="text-gray-400">Items Sold</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Features Section -->
+    <section id="features" class="bg-gray-950 py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-white">Why Choose Rocks?</h2>
+                <p class="text-gray-400 mt-2 max-w-2xl mx-auto">Everything you need to create a fun and engaging community experience.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Added 'interactive-glow-card' class to each feature card -->
+                <div class="interactive-glow-card bg-gray-900 p-8 rounded-lg">
+                    <div class="text-3xl text-indigo-400 mb-4"><i class="fas fa-coins"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Advanced Economy</h3>
+                    <p class="text-gray-400">A robust currency system with rewards for chatting, streaming, daily claims, and streaks. Includes admin tools like give/remove coins.</p>
+                </div>
+                <div class="interactive-glow-card bg-gray-900 p-8 rounded-lg">
+                    <div class="text-3xl text-indigo-400 mb-4"><i class="fas fa-store"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Creator Marketplace</h3>
+                    <p class="text-gray-400">Empower your members! Users can upload their own digital products to a server-wide shop and earn commissions from every sale.</p>
+                </div>
+                <div class="interactive-glow-card bg-gray-900 p-8 rounded-lg">
+                    <div class="text-3xl text-indigo-400 mb-4"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Leveling & Roles</h3>
+                    <p class="text-gray-400">Keep users engaged with an XP and leveling system. Automatically assign roles when members reach certain levels, like the "Creator" role.</p>
+                </div>
+                 <div class="interactive-glow-card bg-gray-900 p-8 rounded-lg">
+                    <div class="text-3xl text-indigo-400 mb-4"><i class="fas fa-cogs"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Highly Configurable</h3>
+                    <p class="text-gray-400">Admins have full control. Set up specific channels for the shop, logs, and uploads. Configure admin and creator roles with simple commands.</p>
+                </div>
+                 <div class="interactive-glow-card bg-gray-900 p-8 rounded-lg">
+                    <div class="text-3xl text-indigo-400 mb-4"><i class="fas fa-trophy"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Leaderboards</h3>
+                    <p class="text-gray-400">Foster friendly competition with a server-wide leaderboard that ranks users by their level and XP, encouraging more activity.</p>
+                </div>
+                 <div class="interactive-glow-card bg-gray-900 p-8 rounded-lg">
+                    <div class="text-3xl text-indigo-400 mb-4"><i class="fas fa-star"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">And Much More</h3>
+                    <p class="text-gray-400">Featuring daily streaks, luck multipliers, user profiles, and a modern UI using Discord's latest features. New updates are always in the works!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <p class="text-gray-400">&copy; 2025 Rocks Bot. All Rights Reserved.</p>
+                <div class="flex mt-4 md:mt-0 space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="https://discord.gg/r6cuk5BM4U" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-discord fa-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-github fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- MOCK DATA ---
+        const botStats = {
+            servers: 4812,
+            users: 112534,
+            itemsSold: 23456
+        };
+
+        // Function to animate numbers
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Apply animations
+        const serverCountEl = document.getElementById('server-count');
+        const userCountEl = document.getElementById('user-count');
+        const itemsSoldEl = document.getElementById('items-sold');
+
+        animateValue(serverCountEl, 0, botStats.servers, 2000);
+        animateValue(userCountEl, 0, botStats.users, 2000);
+        animateValue(itemsSoldEl, 0, botStats.itemsSold, 2000);
+        
+        // Glow effect logic
+        document.querySelectorAll('.interactive-glow-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commands - Rocks Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+        }
+        .command-item-wrapper {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 1px solid #374151;
+        }
+        .command-item-wrapper:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.15);
+            border-color: #4f46e5;
+        }
+        .copy-btn {
+            transition: background-color 0.2s ease;
+        }
+        .copy-btn:hover {
+            background-color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white">
+
+    <!-- Header -->
+    <header class="bg-gray-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white">
+                <i class="fas fa-gem mr-2"></i>Rocks
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html#features" class="hover:text-indigo-400 transition-colors">Features</a>
+                <a href="commands.html" class="text-indigo-400 font-semibold transition-colors">Commands</a>
+                <a href="leaderboard.html" class="hover:text-indigo-400 transition-colors">Leaderboard</a>
+                <a href="#" class="hover:text-indigo-400 transition-colors">Premium</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                 <a href="https://discord.com/oauth2/authorize?client_id=1402682715110637588&permissions=8&integration_type=0&scope=bot+applications.commands" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2 rounded-lg transition-colors">Add to Server</a>
+                 <button class="md:hidden text-2xl" id="menu-btn"><i class="fas fa-bars"></i></button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2">
+            <a href="index.html#features" class="block hover:text-indigo-400 transition-colors">Features</a>
+            <a href="commands.html" class="block text-indigo-400 font-semibold transition-colors">Commands</a>
+            <a href="leaderboard.html" class="block hover:text-indigo-400 transition-colors">Leaderboard</a>
+            <a href="#" class="block hover:text-indigo-400 transition-colors">Premium</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-white">Bot Commands</h1>
+            <p class="text-gray-400 mt-4 max-w-2xl mx-auto">The complete list of commands for Rocks. Use the search bar to filter by name.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-8 max-w-2xl mx-auto">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+                <input type="text" id="command-search" placeholder="Search for a command..." class="w-full bg-gray-900 border border-gray-700 rounded-lg py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+        </div>
+
+        <!-- Commands List -->
+        <div id="commands-container" class="space-y-12">
+            <!-- Dynamically generated command list will go here -->
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 mt-12">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <p class="text-gray-400">&copy; 2025 Rocks Bot. All Rights Reserved.</p>
+                <div class="flex mt-4 md:mt-0 space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="https://discord.gg/r6cuk5BM4U" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-discord fa-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-github fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const commands = {
+            "💰 Economy": [
+                { name: "/balance", desc: "Check your current coin balance." },
+                { name: "/lvl", desc: "Check your current level and XP." },
+                { name: "/profile [user]", desc: "View your or another user's complete profile." },
+                { name: "/pay <recipient> <amount>", desc: "Send coins to another user." },
+                { name: "/leaderboard", desc: "View the server's top members by level." },
+                { name: "/daily", desc: "Claim your daily reward and maintain your streak." },
+                { name: "/streak", desc: "Check your current daily streak and luck bonus." },
+                { name: "/luck", desc: "Check your current luck boost from your streak." },
+                { name: "/droprates", desc: "View your current drop rates for coins and XP." }
+            ],
+            "🛍️ Shop": [
+                { name: "/shop", desc: "Open the interactive marketplace to browse and buy items." }
+            ],
+            "✨ Creator": [
+                { name: "/upd", desc: "[Creators] Upload a new item to the shop through a guided process." }
+            ],
+            "⚙️ Admin & Config": [
+                { name: "/config setup [channels...]", desc: "Set up important channels like shop, logs, etc." },
+                { name: "/config addcreatorrole <role>", desc: "Add a role to the list of approved creators." },
+                { name: "/config removecreatorrole <role>", desc: "Remove a role from the creator list." },
+                { name: "/config view", desc: "View all configured channels and roles." },
+                { name: "/adminrole add <role>", desc: "Grant a role admin command access." },
+                { name: "/adminrole remove <role>", desc: "Revoke a role's admin access." },
+                { name: "/adminrole list", desc: "List all roles with admin access." },
+                { name: "/givecoins <user> <amount>", desc: "[Admin] Give coins to a user." },
+                { name: "/removecoins <user> <amount>", desc: "[Admin] Remove coins from a user." },
+                { name: "/removeitem <item_id>", desc: "[Admin] Remove an item from the shop by its ID." },
+                { name: "/featureitem <item_id>", desc: "[Admin] Feature an item in the shop." },
+                { name: "/synccreators", desc: "[Admin] Grant the Creator role to all members at or above level 25." }
+            ]
+        };
+
+        const commandsContainer = document.getElementById('commands-container');
+
+        function renderCommands(filter = '') {
+            commandsContainer.innerHTML = '';
+            for (const category in commands) {
+                const filteredCommands = commands[category].filter(cmd => cmd.name.toLowerCase().includes(filter.toLowerCase()));
+                
+                if (filteredCommands.length > 0) {
+                    let categoryHtml = `
+                        <div class="command-category" data-category="${category}">
+                            <h2 class="text-3xl font-bold mb-6 text-indigo-400 border-b-2 border-indigo-500 pb-2">${category}</h2>
+                            <div class="space-y-4">
+                    `;
+                    
+                    filteredCommands.forEach(cmd => {
+                        categoryHtml += `
+                            <div class="command-item-wrapper bg-gray-900 rounded-lg" data-name="${cmd.name}">
+                                <div class="flex justify-between items-center p-4">
+                                    <div>
+                                        <code class="text-indigo-300 font-mono text-lg">${cmd.name}</code>
+                                        <p class="text-gray-400 text-sm">${cmd.desc}</p>
+                                    </div>
+                                    <button class="copy-btn bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg text-sm" data-command="${cmd.name}">
+                                        <i class="fas fa-copy mr-2"></i>Copy
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    categoryHtml += `</div></div>`;
+                    commandsContainer.innerHTML += categoryHtml;
+                }
+            }
+        }
+
+        // --- Initial Render ---
+        renderCommands();
+
+        // --- Mobile Menu Toggle ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // --- Add event listeners for copy buttons ---
+        commandsContainer.addEventListener('click', function(e) {
+            const button = e.target.closest('.copy-btn');
+            if (button) {
+                const commandToCopy = button.dataset.command.split(' ')[0]; // Copy only the command part e.g. /pay
+                navigator.clipboard.writeText(commandToCopy).then(() => {
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+                    button.classList.replace('bg-indigo-600', 'bg-green-600');
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.classList.replace('bg-green-600', 'bg-indigo-600');
+                    }, 2000);
+                });
+            }
+        });
+
+        // --- Live Search Filter ---
+        const searchInput = document.getElementById('command-search');
+        searchInput.addEventListener('keyup', (e) => {
+            renderCommands(e.target.value);
+        });
+    </script>
+
+</body>
+</html>
+
